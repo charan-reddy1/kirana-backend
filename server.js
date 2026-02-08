@@ -15,6 +15,8 @@ mongoose
 app.get("/", (req, res) => {
   res.send("Backend is running");
 });
+const productRoutes = require("./routes/productRoutes");
+app.use("/products", productRoutes);
 
 app.listen(5000, () => {
   console.log("Server started on port 5000");
