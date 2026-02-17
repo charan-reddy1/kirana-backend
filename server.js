@@ -6,17 +6,19 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// 🔽 PASTE YOUR MONGODB LINK INSIDE THE QUOTES BELOW
 mongoose
-  .connect("mongodb://charan:Charan123@cluster0-shard-00-00.fnozz9m.mongodb.net:27017,cluster0-shard-00-01.fnozz9m.mongodb.net:27017,cluster0-shard-00-02.fnozz9m.mongodb.net:27017/?ssl=true&replicaSet=atlas-xxxxx&authSource=admin&retryWrites=true&w=majority")
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
 app.get("/", (req, res) => {
   res.send("Backend is running");
 });
-const productRoutes = require("./routes/productRoutes");
-app.use("/products", productRoutes);
+
+// PRODUCTS ROUTE
+app.get("/products", async (req, res) => {
+  res.json([]);
+});
 
 app.listen(5000, () => {
   console.log("Server started on port 5000");
